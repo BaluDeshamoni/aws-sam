@@ -9,7 +9,6 @@ BASE_HEADERS = {
     'Access-Control-Allow-Headers': 'Content-Type',
     'Access-Control-Allow-Methods': 'OPTIONS,POST,GET'
 }
-
 def lambda_handler(event, context):
     try:
         http_method = event.get('httpMethod', 'GET')

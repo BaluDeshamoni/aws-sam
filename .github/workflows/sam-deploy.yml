@@ -1,6 +1,7 @@
 name: Add README File
 
 on:
+  push:
   workflow_dispatch:
 
 permissions:
@@ -18,8 +19,8 @@ jobs:
         run: |
           echo "# Contact Form API" > README.md
           echo "" >> README.md
-          echo "This repository contains a serverless application built using AWS SAM." >> README.md
-          echo "- 🚀 Auto-deployed on manual trigger" >> README.md
+          echo "This repository contains a serverless application built using AWS." >> README.md
+          echo "- 🚀 Auto-deployed on manual trigger or push" >> README.md
           echo "- ☁️ Powered by AWS Lambda + API Gateway" >> README.md
           echo "- 📦 Template: \`sam-template.yaml\`" >> README.md
 
