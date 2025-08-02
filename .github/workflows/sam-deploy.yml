@@ -1,43 +1,34 @@
-name: Deploy SAM Application
+name: Add README File
 
 on:
   push:
     branches:
       - aws-sam
-    paths:
-      - 'sam-backend/**'
-      - 'sam-template.yaml'
 
 permissions:
-  id-token: write
-  contents: read
-  
+  contents: write
+
 jobs:
-  deploy:
-    name: Build and Deploy with SAM
+  add-readme:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.11' 
+      - name: Generate README.md
+        run: |
+          echo "# Contact Form API" > README.md
+          echo "" >> README.md
+          echo "This repository contains a serverless application built using AWS SAM." >> README.md
+          echo "- 🚀 Auto-deployed on push to \`aws-sam\` branch" >> README.md
+          echo "- ☁️ Powered by AWS Lambda + API Gateway" >> README.md
+          echo "- 📦 Template: \`sam-template.yaml\`" >> README.md
 
-      - name: Set up AWS credentials
-        uses: aws-actions/configure-aws-credentials@v2
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-2 
-
-      - name: Install AWS SAM CLI
-        uses: aws-actions/setup-sam@v2
-
-      - name: Build SAM application
-        run: sam build --template sam-template.yaml
-
-      - name: Deploy SAM application
-        run: sam deploy --no-confirm-changeset --no-fail-on-empty-changeset --stack-name contact-form-api --capabilities CAPABILITY_IAM
+      - name: Commit and push README.md
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+          git add README.md
+          git diff --cached --quiet || git commit -m "Add dynamic README.md"
+          git push origin aws-sam
