@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - aws-sam
+  workflow_dispatch:
 
 permissions:
   contents: write
