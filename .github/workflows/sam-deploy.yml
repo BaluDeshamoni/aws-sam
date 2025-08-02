@@ -1,9 +1,6 @@
 name: Add README File
 
 on:
-  push:
-    branches:
-      - aws-sam
   workflow_dispatch:
 
 permissions:
@@ -22,7 +19,7 @@ jobs:
           echo "# Contact Form API" > README.md
           echo "" >> README.md
           echo "This repository contains a serverless application built using AWS SAM." >> README.md
-          echo "- 🚀 Auto-deployed on push to \`aws-sam\` branch" >> README.md
+          echo "- 🚀 Auto-deployed on manual trigger" >> README.md
           echo "- ☁️ Powered by AWS Lambda + API Gateway" >> README.md
           echo "- 📦 Template: \`sam-template.yaml\`" >> README.md
 
@@ -32,4 +29,4 @@ jobs:
           git config --global user.email "github-actions@github.com"
           git add README.md
           git diff --cached --quiet || git commit -m "Add dynamic README.md"
-          git push origin aws-sam
+          git push
